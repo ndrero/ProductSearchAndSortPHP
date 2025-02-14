@@ -1,20 +1,11 @@
 <?php
 
-require 'config.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/functions.php';
 
-function listProducts() {
-    global $pdo;
-    try {
-        $stmt = $pdo->prepare('SELECT * FROM products');
-        $stmt->execute();
-        return $stmt->fetchAll();
-    } catch (PDOException $e) {
-        echo 'Não foi possível acessar o banco de dados';
-    }
-}
-
+$filterByPost = getFilterByPost();
 $index = 0;
-$products = listProducts();
+$products = listProducts($filterByPost);
 ?>
 
 <!doctype html>
@@ -28,7 +19,15 @@ $products = listProducts();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container mt-2">
+        <div class="col-3 mt-3">
+            <form action="" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="filtro" placeholder="O que procura?" aria-label="O que procura?">
+                    <button class="btn btn-primary" type="submit" id="button-addon2">Buscar</button>
+                </div>
+            </form>
+        </div>
         <table class="table mx-auto">
             <thead>
             <tr>
