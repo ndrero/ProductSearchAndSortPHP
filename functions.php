@@ -29,7 +29,7 @@ function listProducts($filter) {
         $stmt = $pdo->prepare($query);
 
         if (!empty($filterParam)) {
-            $stmt->bindParam(':filter', $filter);
+            $stmt->bindParam(':filter', $filterParam);
 
         }
 
