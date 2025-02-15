@@ -18,15 +18,22 @@ function getFilterByPost() {
 function listProducts($filter) {
     global $pdo;
     $query = 'SELECT * FROM products';
+
+    if (!empty($filter)) {
+        $filter = "%{$filter}%";
+        $query .= " WHERE name LIKE :filter";
+    }
+
     try {
-        if (!empty($filter)){
-            $query .= " WHERE name LIKE :filter";
-            $str = "%{$filter}%";
-        }
         $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':filter', $str);
+
+        if (!empty($filter)) {
+            $stmt->bindParam(':filter', $filter);
+
+        }
+
         $stmt->execute();
-            return $stmt->fetchAll();
+        return $stmt->fetchAll();
     } catch (PDOException $e) {
         echo 'Não foi possível acessar o banco de dados';
     }
