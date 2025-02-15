@@ -11,18 +11,22 @@ function getFilterByPost() {
     }
 }
 
-#Get products from a filter if it is set, otherwise, get all products
+/*
+    Get products from a filter and/or by order if they are set,
+    otherwise, get all products
+*/
 function listProducts($filter) {
     global $pdo;
+    $query = 'SELECT * FROM products';
     try {
         if (!empty($filter)){
-            $stmt = $pdo->prepare("SELECT * FROM products WHERE name LIKE '%$filter%'");
-            $stmt->execute();
-        } else {
-            $stmt = $pdo->prepare('SELECT * FROM products');
-            $stmt->execute();
+            $query .= " WHERE name LIKE :filter";
+            $str = "%{$filter}%";
         }
-        return $stmt->fetchAll();
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':filter', $str);
+        $stmt->execute();
+            return $stmt->fetchAll();
     } catch (PDOException $e) {
         echo 'Não foi possível acessar o banco de dados';
     }
