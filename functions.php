@@ -18,16 +18,17 @@ function getFilterByPost() {
 function listProducts($filter) {
     global $pdo;
     $query = 'SELECT * FROM products';
+    $filterParam = '';
 
-    if (!empty($filter)) {
-        $filter = "%{$filter}%";
+    if (!empty($filter) && strlen($filter) > 3) {
+        $filterParam = "%{$filter}%";
         $query .= " WHERE name LIKE :filter";
     }
 
     try {
         $stmt = $pdo->prepare($query);
 
-        if (!empty($filter)) {
+        if (!empty($filterParam)) {
             $stmt->bindParam(':filter', $filter);
 
         }
