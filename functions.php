@@ -63,7 +63,7 @@ function getFilterByPost() {
     Get products from a filter and/or by order if they are set,
     otherwise, get all products
 */
-function listProducts($filter) {
+function listProducts() {
     global $pdo;
     $query = 'SELECT *, (inventory * price) AS total FROM products';
 

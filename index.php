@@ -5,9 +5,10 @@ require_once __DIR__ . '/functions.php';
 
 session_start();
 
-$filterByPost = getFilterByPost();
+getFilterByPost();
+$products = listProducts();
 $index = 0;
-$products = listProducts($filterByPost);
+
 ?>
 
 <!doctype html>
