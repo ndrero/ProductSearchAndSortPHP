@@ -68,7 +68,7 @@ function listProducts() {
     $query = 'SELECT *, (inventory * price) AS total FROM products';
 
     if (!empty($_SESSION['filter'])) {
-        $query .= " WHERE name OR categories LIKE :filter";
+        $query .= " WHERE name LIKE :filter OR categories LIKE :filter";
     }
     $orders = getAndValidatesOrder();
 
