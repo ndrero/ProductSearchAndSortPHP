@@ -44,7 +44,7 @@ $index = 0;
             </tr>
             </thead>
             <tbody>
-            <?php if(!empty($products) && is_array($products)) : ?>
+            <?php if(!empty($products)): ?>
                 <?php foreach ($products as $product): ?>
                 <tr>
                     <th scope="row"><?php echo ++$index ?></th>
