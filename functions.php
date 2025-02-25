@@ -51,7 +51,7 @@ function setDirectionIcon($column){
 function getFilterByPost() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['filter'])){
         $filter = trim($_POST['filter']);
-        if (!empty($filter) && strlen($filter) > 3) {
+        if (!empty($filter) && strlen($filter) >= 3) {
             $_SESSION['filter'] = "%{$filter}%";
         } else {
             unset($_SESSION['filter']);
@@ -86,7 +86,6 @@ function listProducts() {
 
     try {
         $stmt = $pdo->prepare($query);
-
         if (!empty($_SESSION['filter'])) {
             $stmt->bindValue(':filter', $_SESSION['filter']);
         }
