@@ -51,10 +51,14 @@ function setDirectionIcon($column){
 function getFilterByPost() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['filter'])){
         $filter = trim($_POST['filter']);
-        if (!empty($filter) && strlen($filter) >= 3) {
-            $_SESSION['filter'] = "%{$filter}%";
+        if (!empty($filter)){
+            if(strlen($filter) >= 3) {
+                $_SESSION['filter'] = "%{$filter}%";
+            } else {
+                echo '<div class="container mt-4" style="width: 300px"> <div class="alert alert-warning" role="alert"> O filtro deve conter pelo menos 3 caracteres </div></div>';
+            }
         } else {
-            unset($_SESSION['filter']);
+            $_SESSION['filter'] = null;
         }
     }
 }

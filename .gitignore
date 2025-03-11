@@ -1,5 +1,4 @@
-config.php
-.gitignore
-node_modules
-package-lock.json
-package.json
+.env
+/vendor
+.idea/
+composer.json
